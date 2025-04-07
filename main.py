@@ -8,7 +8,7 @@ def main(image_path):
     image = cv2.imread(image_path)
     height, width, _ = image.shape
 
-    estimator = PoseEstimator()
+    estimator = PoseEstimator()  
     analyzer = LandmarkAnalyzer()
     visualizer = PoseVisualizer()
 
@@ -20,17 +20,17 @@ def main(image_path):
         is_full = analyzer.check_full_body(results.pose_landmarks)
 
         if area_ratio >= 0.4 and is_full:
-            print("Full human body detected.")
+            print("Full human detected.")
         elif area_ratio < 0.4:
-            print(" paritial  human body detected.")
+            print(" human detected.")
         else:
             print("Human detected but body is not fully visible.")
 
         output_image = visualizer.draw_landmarks(image, results.pose_landmarks, bbox)
-        cv2.imwrite("output_with_keypoints.jpg", output_image)
-        cv2.imshow("Keypoints_image", output_image)
-        cv2.waitKey(5000) 
-        cv2.destroyAllWindows()
+        cv2.imwrite("keypoints_overlay.jpg", output_image)
+        # cv2.imshow("Keypoints_image", output_image)
+        # cv2.waitKey(1000) 
+        # cv2.destroyAllWindows()
     else:
         print("No human detected.")
 
